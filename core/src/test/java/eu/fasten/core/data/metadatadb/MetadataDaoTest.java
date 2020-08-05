@@ -27,6 +27,9 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
+
+import java.io.File;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,6 +37,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 
 public class MetadataDaoTest {
 
@@ -1169,5 +1174,21 @@ public class MetadataDaoTest {
         Mockito.when(insertResult.fetch()).thenReturn(resultSet);
         var result = metadataDao.batchInsertCallables(List.of(record1, record2));
         assertEquals(List.of(record1.getId(), record2.getId()), result);
+    }
+
+    @Test
+    public void getAllMetadataForPkgTest() {
+        // given
+        var forge = "mvn";
+        var packageName = "org.package.name";
+        var version = "1.0.0";
+        var expectedJSONResult = "\"mvn\",\"org.package.name\",\"1.0.0\"";
+//        when
+        String result = metadataDao.getAllMetadataForPkg(forge, packageName, version);
+
+//        String result = metadata.something();
+
+//        then
+        assertThat(result, containsString(expectedJSONResult));
     }
 }
