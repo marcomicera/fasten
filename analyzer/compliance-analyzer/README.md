@@ -25,13 +25,23 @@ This integration is part of the WP4 and it's being developed by [Endocode AG](ht
 </p>
 
 #### <!-- TODO ultimate goal -->
-1. Start the plugin:
-    ```bash
-    # Example: from the FASTEN root folder
-    mvn clean install exec:java \
-      -f analyzer/compliance-analyzer/pom.xml \
-      -Dexec.args="--repository analyzer/compliance-analyzer/dummyKafkaTopic.json --cluster-credentials path/to/cluster/credentials.json"
-    ```
+1. Start the plugin.
+
+    - From a Docker container:
+        1. Edit the [`docker/.env`](docker/.env) file accordingly.
+        1. Launch it:
+            ```bash
+            cd docker && docker-compose up
+            ```
+
+    - From your local machine:
+        ```bash
+        # Example: from the FASTEN root folder
+        mvn clean install exec:java \
+          -f analyzer/compliance-analyzer/pom.xml \
+          -Dexec.args="--repository analyzer/compliance-analyzer/dummyKafkaTopic.json --cluster-credentials path/to/cluster/credentials.json"
+        ```
+    
    This demo simulates a Kafka topic consumption by reading the [`dummyKafkaTopic.json` file](dummyKafkaTopic.json).\
    Upon topic consumption, the `compliance-analyzer` launches Quartermaster that will build the specified repository. 
 
@@ -55,9 +65,9 @@ This integration is part of the WP4 and it's being developed by [Endocode AG](ht
         <img src="img/dgraph_login.png" alt="DGraph login page" width="75%"/>
     </p>
 
-1. Navigate to the "Console" page
+1. Navigate to the "Console" page.
 
-1. You should now be able to query the database
+1. You should now be able to query the database:
     ```graphql
     {
         # *.class files

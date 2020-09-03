@@ -1,0 +1,10 @@
+version: '3'
+services:
+  demo:
+    stdin_open: true
+    tty: true
+    build: .
+    volumes:
+    - ${KUBECONFIG_PATH}:/root/.kube/config
+    - ${FASTEN_REPO_PATH}:/home/demo
+    - ${GKE_CLUSTER_CREDENTIALS}:/home/demo/credentials.json
